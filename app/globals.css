@@ -1,0 +1,458 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  --background: oklch(0.08 0.01 90);
+  --foreground: oklch(0.85 0.12 85);
+  --card: oklch(0.10 0.01 90);
+  --card-foreground: oklch(0.85 0.12 85);
+  --popover: oklch(0.10 0.01 90);
+  --popover-foreground: oklch(0.85 0.12 85);
+  --primary: oklch(0.75 0.22 145);
+  --primary-foreground: oklch(0.10 0.01 90);
+  --secondary: oklch(0.15 0.02 80);
+  --secondary-foreground: oklch(0.85 0.12 85);
+  --muted: oklch(0.15 0.02 80);
+  --muted-foreground: oklch(0.65 0.08 85);
+  --accent: oklch(0.78 0.15 85);
+  --accent-foreground: oklch(0.10 0.01 90);
+  --destructive: oklch(0.577 0.245 27.325);
+  --destructive-foreground: oklch(0.985 0 0);
+  --border: oklch(0.30 0.10 85);
+  --input: oklch(0.20 0.05 85);
+  --ring: oklch(0.78 0.15 85);
+  --radius: 1.25rem;
+
+  --gold: oklch(0.78 0.15 85);
+  --gold-bright: oklch(0.92 0.18 90);
+  --gold-deep: oklch(0.55 0.13 75);
+  --neon-green: oklch(0.78 0.27 145);
+}
+
+@theme inline {
+  --font-sans: var(--font-inter), 'Inter Fallback', system-ui, sans-serif;
+  --font-serif: var(--font-cinzel), 'Cinzel Fallback', Georgia, serif;
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-gold: var(--gold);
+  --color-gold-bright: var(--gold-bright);
+  --color-gold-deep: var(--gold-deep);
+  --color-neon-green: var(--neon-green);
+  --radius-sm: calc(var(--radius) - 8px);
+  --radius-md: calc(var(--radius) - 4px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+/* ============================================== */
+/* PAGE BG – pure black outside the phone frame    */
+/* ============================================== */
+.page-bg {
+  background-color: #000000;
+  background-image:
+    radial-gradient(ellipse at 50% 50%, rgba(20, 20, 20, 1) 0%, #000000 70%);
+}
+
+/* ============================================== */
+/* PHONE FRAME – mobile-screen container           */
+/* ============================================== */
+.phone-frame {
+  box-shadow:
+    0 0 0 1px rgba(212, 175, 55, 0.18),
+    0 30px 80px rgba(0, 0, 0, 0.85),
+    0 10px 40px rgba(0, 0, 0, 0.6);
+}
+
+/* ============================================== */
+/* MARBLE BACKGROUND – real photo + heavy darken   */
+/* ============================================== */
+.marble-bg {
+  background-color: #000000;
+  /* Very heavy black overlay so the surface reads black with only hints of gold veins */
+  background-image:
+    linear-gradient(180deg, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.85) 50%, rgba(0,0,0,0.9) 100%),
+    url("/marble-bg.jpg");
+  background-size: cover, cover;
+  background-position: center, center;
+  background-repeat: no-repeat, no-repeat;
+}
+
+.marble-bg::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background:
+    /* very faint warm gold glints in opposite corners – nothing else */
+    radial-gradient(ellipse at 0% 100%, rgba(180, 140, 40, 0.06) 0%, transparent 45%),
+    radial-gradient(ellipse at 100% 0%, rgba(180, 140, 40, 0.05) 0%, transparent 45%);
+}
+
+/* ===== Antique champagne gold – muted, warm, NOT lemon-yellow ===== */
+.gold-text {
+  background: linear-gradient(
+    180deg,
+    #e8d29a 0%,
+    #d6b975 25%,
+    #b8954a 55%,
+    #8b6a2a 85%,
+    #4d370d 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter:
+    drop-shadow(0 1px 0 rgba(0, 0, 0, 0.95))
+    drop-shadow(0 0 12px rgba(160, 120, 40, 0.25));
+}
+
+.gold-text-soft {
+  background: linear-gradient(180deg, #d6b975 0%, #a8843a 60%, #6b4d10 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 1px 0 rgba(0, 0, 0, 0.95));
+}
+
+/* ===== Animated gold sweep across title – antique champagne metallic ===== */
+.gold-sweep {
+  background:
+    /* moving cream shine (subtle, not pure white) */
+    linear-gradient(
+      100deg,
+      transparent 0%,
+      transparent 42%,
+      rgba(245, 230, 200, 0.7) 49%,
+      rgba(250, 240, 215, 0.85) 50%,
+      rgba(245, 230, 200, 0.7) 51%,
+      transparent 58%,
+      transparent 100%
+    ),
+    /* antique-gold metallic vertical band – warm bronze, not yellow */
+    linear-gradient(
+      180deg,
+      #f0dcae 0%,
+      #d8bb78 18%,
+      #b8954a 38%,
+      #9b7a30 55%,
+      #6f5219 78%,
+      #3d2906 100%
+    );
+  background-size: 250% 100%, 100% 100%;
+  background-position: -150% 0, 0 0;
+  background-repeat: no-repeat, no-repeat;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: gold-sweep 6s ease-in-out infinite;
+  filter:
+    drop-shadow(0 2px 0 rgba(0, 0, 0, 0.95))
+    drop-shadow(0 1px 0 rgba(40, 25, 5, 0.95))
+    drop-shadow(0 0 18px rgba(160, 120, 40, 0.3))
+    drop-shadow(0 0 36px rgba(120, 90, 30, 0.18));
+}
+
+@keyframes gold-sweep {
+  0% { background-position: -150% 0, 0 0; }
+  100% { background-position: 250% 0, 0 0; }
+}
+
+/* ============================================== */
+/* TILE – heavy 3D glassy luxury button            */
+/* ============================================== */
+.tile {
+  position: relative;
+  isolation: isolate;
+  /* glassy black/green inner gradient */
+  background:
+    radial-gradient(ellipse 120% 60% at 50% 0%, rgba(80, 220, 130, 0.10) 0%, transparent 60%),
+    linear-gradient(160deg,
+      rgba(28, 24, 12, 0.85) 0%,
+      rgba(14, 12, 6, 0.9) 35%,
+      rgba(6, 6, 3, 0.95) 100%);
+  /* gold bezel */
+  border: 1.5px solid transparent;
+  border-radius: 1.75rem;
+  background-clip: padding-box;
+  box-shadow:
+    /* outer gold rim */
+    0 0 0 1px rgba(212, 175, 55, 0.55),
+    /* inner top highlight */
+    inset 0 2px 1px rgba(255, 235, 150, 0.55),
+    inset 0 1px 0 rgba(255, 215, 100, 0.7),
+    /* inner bottom shadow */
+    inset 0 -2px 2px rgba(0, 0, 0, 0.6),
+    inset 0 -1px 0 rgba(80, 60, 15, 0.7),
+    /* side bevels */
+    inset 1px 0 0 rgba(212, 175, 55, 0.15),
+    inset -1px 0 0 rgba(212, 175, 55, 0.15),
+    /* drop shadow / depth */
+    0 10px 30px rgba(0, 0, 0, 0.7),
+    0 4px 12px rgba(0, 0, 0, 0.5),
+    /* subtle gold ambient glow */
+    0 0 35px rgba(212, 175, 55, 0.08);
+  transition:
+    transform 0.45s cubic-bezier(0.2, 0.8, 0.2, 1),
+    box-shadow 0.45s ease;
+  overflow: hidden;
+}
+
+/* Glassy top sheen – the big ambient highlight on the upper half */
+.tile::before {
+  content: "";
+  position: absolute;
+  inset: 1px;
+  border-radius: inherit;
+  pointer-events: none;
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255, 235, 150, 0.16) 0%,
+      rgba(255, 215, 100, 0.06) 18%,
+      transparent 38%,
+      transparent 70%,
+      rgba(212, 175, 55, 0.08) 100%
+    );
+  z-index: 1;
+}
+
+/* Top-edge bright shine line (like reflected light on a glass surface) */
+.tile::after {
+  content: "";
+  position: absolute;
+  top: 2px;
+  left: 8%;
+  right: 8%;
+  height: 2px;
+  border-radius: 2px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 235, 150, 0.0) 8%,
+    rgba(255, 245, 200, 0.95) 50%,
+    rgba(255, 235, 150, 0.0) 92%,
+    transparent 100%
+  );
+  filter: blur(0.5px);
+  z-index: 2;
+}
+
+.tile > * {
+  position: relative;
+  z-index: 3;
+}
+
+.tile:hover {
+  transform: translateY(-3px) scale(1.015);
+  box-shadow:
+    0 0 0 1px rgba(255, 225, 130, 0.85),
+    inset 0 2px 1px rgba(255, 245, 180, 0.7),
+    inset 0 1px 0 rgba(255, 235, 150, 0.85),
+    inset 0 -2px 2px rgba(0, 0, 0, 0.65),
+    inset 0 -1px 0 rgba(100, 75, 20, 0.8),
+    inset 1px 0 0 rgba(255, 225, 130, 0.25),
+    inset -1px 0 0 rgba(255, 225, 130, 0.25),
+    0 14px 38px rgba(0, 0, 0, 0.75),
+    0 6px 16px rgba(0, 0, 0, 0.5),
+    0 0 50px rgba(80, 220, 130, 0.18),
+    0 0 70px rgba(212, 175, 55, 0.12);
+}
+
+.tile:active {
+  transform: translateY(-1px) scale(1.005);
+  transition-duration: 0.15s;
+}
+
+/* ============================================== */
+/* SETTINGS PILL – 3D gold pill                    */
+/* ============================================== */
+.pill {
+  position: relative;
+  isolation: isolate;
+  background:
+    linear-gradient(160deg,
+      rgba(28, 24, 12, 0.85) 0%,
+      rgba(10, 10, 6, 0.95) 100%);
+  border: 1.5px solid transparent;
+  border-radius: 9999px;
+  box-shadow:
+    0 0 0 1px rgba(212, 175, 55, 0.6),
+    inset 0 2px 1px rgba(255, 235, 150, 0.5),
+    inset 0 1px 0 rgba(255, 215, 100, 0.7),
+    inset 0 -2px 2px rgba(0, 0, 0, 0.6),
+    inset 0 -1px 0 rgba(80, 60, 15, 0.7),
+    0 8px 20px rgba(0, 0, 0, 0.6),
+    0 0 25px rgba(212, 175, 55, 0.08);
+  transition:
+    transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1),
+    box-shadow 0.35s ease;
+  overflow: hidden;
+}
+
+.pill::before {
+  content: "";
+  position: absolute;
+  inset: 1px;
+  border-radius: inherit;
+  pointer-events: none;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 235, 150, 0.18) 0%,
+    rgba(255, 215, 100, 0.05) 35%,
+    transparent 60%,
+    rgba(212, 175, 55, 0.08) 100%
+  );
+}
+
+.pill::after {
+  content: "";
+  position: absolute;
+  top: 2px;
+  left: 12%;
+  right: 12%;
+  height: 1.5px;
+  border-radius: 2px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 245, 200, 0.85) 50%,
+    transparent 100%
+  );
+  filter: blur(0.5px);
+}
+
+.pill > * {
+  position: relative;
+  z-index: 1;
+}
+
+.pill:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 0 0 1px rgba(255, 225, 130, 0.9),
+    inset 0 2px 1px rgba(255, 245, 180, 0.7),
+    inset 0 1px 0 rgba(255, 235, 150, 0.85),
+    inset 0 -2px 2px rgba(0, 0, 0, 0.65),
+    inset 0 -1px 0 rgba(100, 75, 20, 0.8),
+    0 12px 28px rgba(0, 0, 0, 0.7),
+    0 0 35px rgba(212, 175, 55, 0.18);
+}
+
+/* ============================================== */
+/* NEON GREEN ICONS                                */
+/* ============================================== */
+.neon-icon {
+  color: #6ee7a7;
+  filter:
+    drop-shadow(0 0 3px #4ade80)
+    drop-shadow(0 0 10px #22c55e)
+    drop-shadow(0 0 22px rgba(34, 197, 94, 0.7))
+    drop-shadow(0 0 40px rgba(34, 197, 94, 0.35));
+  animation: neon-flicker 4.5s ease-in-out infinite;
+}
+
+@keyframes neon-flicker {
+  0%, 100% { opacity: 1; }
+  46% { opacity: 1; }
+  47% { opacity: 0.78; }
+  48% { opacity: 1; }
+  92% { opacity: 0.94; }
+  93% { opacity: 1; }
+}
+
+/* ===== Floating paper airplane ===== */
+@keyframes airplane-float {
+  0%, 100% { transform: translateY(0) rotate(-1.5deg); }
+  50% { transform: translateY(-12px) rotate(1.5deg); }
+}
+
+@keyframes airplane-glow-pulse {
+  0%, 100% {
+    filter:
+      drop-shadow(0 0 6px #6ee7a7)
+      drop-shadow(0 0 18px #22c55e)
+      drop-shadow(0 0 38px rgba(34, 197, 94, 0.8))
+      drop-shadow(0 0 70px rgba(34, 197, 94, 0.45));
+  }
+  50% {
+    filter:
+      drop-shadow(0 0 10px #86efac)
+      drop-shadow(0 0 28px #4ade80)
+      drop-shadow(0 0 55px rgba(34, 197, 94, 1))
+      drop-shadow(0 0 100px rgba(34, 197, 94, 0.55));
+  }
+}
+
+.airplane-anim {
+  animation:
+    airplane-float 5s ease-in-out infinite,
+    airplane-glow-pulse 3.2s ease-in-out infinite;
+}
+
+/* ===== Status dot pulse ===== */
+@keyframes status-pulse {
+  0%, 100% { box-shadow: 0 0 8px #4ade80, 0 0 16px #22c55e; transform: scale(1); }
+  50% { box-shadow: 0 0 14px #86efac, 0 0 28px #4ade80, 0 0 40px rgba(34, 197, 94, 0.6); transform: scale(1.18); }
+}
+
+.status-dot {
+  animation: status-pulse 2.2s ease-in-out infinite;
+}
+
+/* ===== Divider ornament ===== */
+.divider-ornament {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  color: rgba(212, 175, 55, 0.75);
+}
+.divider-ornament::before,
+.divider-ornament::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.7), transparent);
+}
+
+/* ===== Coming-soon shimmer ===== */
+@keyframes shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+.shimmer-text {
+  background: linear-gradient(90deg, #d4af37 0%, #fef3c7 50%, #d4af37 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shimmer 3s linear infinite;
+}
