@@ -25,7 +25,7 @@ export function ServiceTile({ icon: Icon, title, subtitle, onSelect, className }
       <div className="flex-1 flex items-center justify-center w-full">
         <Icon
           className="neon-icon h-16 w-16 sm:h-20 sm:w-20 transition-transform duration-500 group-hover:scale-110"
-          strokeWidth={1.6}
+          strokeWidth={1.2}
           aria-hidden="true"
         />
       </div>

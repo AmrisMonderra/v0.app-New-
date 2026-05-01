@@ -57,11 +57,11 @@ export default function HomePage() {
         </section>
 
         {/* Settings button */}
-        <div className="mt-6">
+        <div className="mt-6 w-full max-w-[260px] sm:max-w-none">
           <button
             type="button"
             onClick={() => handleSelect("SETTINGS")}
-            className="pill flex items-center gap-4 px-6 py-3.5 w-full max-w-[260px] focus:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--gold-bright)]"
+            className="pill flex items-center gap-4 px-6 py-3.5 w-full focus:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--gold-bright)]"
             aria-label="Settings"
           >
             <Settings
